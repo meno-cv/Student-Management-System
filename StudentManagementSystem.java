@@ -24,6 +24,18 @@ class StudentManagementSystem{
 		}  
 	}
 	
-	
+	public static void extendBatchArrays(){
+		int[] tempBatchNos = new int[batchNos.length+1];
+		int[] tempBatchStatus = new int[batchStatus.length+1];
+		
+		for (int i = 0; i < batchNos.length+1; i++){
+			tempBatchNos[i] = batchNos[i];
+			tempBatchStatus[i] = batchStatus[i];
+		}
+		
+		batchNos = tempBatchNos;
+		batchStatus = tempBatchStatus;
+		
+	}
 }
 
