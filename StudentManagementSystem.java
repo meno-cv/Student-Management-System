@@ -63,5 +63,80 @@ class StudentManagementSystem{
 		DBMSMarks = tempDBMSMarks; 
 
 	}
+
+	public static void extendArrays(){
+		String[] tempStudentIDs= new String[studentIDs.length+1];
+		String[] tempStudentNames= new String[studentNames.length+1];
+		String[] tempNICs= new String[NICs.length+1];
+		int[] tempPRFMarks= new int[PRFMarks.length+1];
+		int[] tempDBMSMarks= new int[DBMSMarks.length+1];
+		
+		
+		
+		for (int i = 0; i < studentIDs.length; i++){
+			tempStudentIDs[i] = studentIDs[i];
+			tempStudentNames[i] = studentNames[i];
+			tempNICs[i] = NICs[i];
+			tempPRFMarks[i] = PRFMarks[i];
+			tempDBMSMarks[i] = DBMSMarks[i];
+
+		}
+		
+		studentIDs = tempStudentIDs;
+		studentNames = tempStudentNames;
+		NICs = tempNICs;
+		PRFMarks = tempPRFMarks;
+		DBMSMarks = tempDBMSMarks; 
+
+	}
+
+	public static boolean checkBatchStatus(int batchNO){
+		
+		for (int i = 0; i < batchNos.length; i++){
+			if(batchNO == batchNos[i]){
+				if(batchStatus[i] == 1){
+					return true;
+				}				
+			}
+		}
+		return false;
+	}
+	
+	public static boolean checkNICIsExists(String NIC){
+		for (int i = 0; i < NICs.length; i++){
+			if(NIC.equals(NICs[i])){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static String generateStudentId(int userInputBatchNo, int mode){
+		
+		//student count
+		
+		int studentCount = 0;
+		
+		for (int i = 0; i < studentIDs.length; i++){
+			String studentId = studentIDs[i];
+			String batchNO = studentId.substring(4,7); // OR24110520 -> 110
+			
+			int batchNo = Integer.parseInt(batchNO);
+			
+			if(batchNo == userInputBatchNo){
+				studentCount++;
+			}
+		}
+		
+		String studentId = "";
+		
+		if(mode == 1){
+			studentId = studentId + "PR" + 26 + userInputBatchNo + String.format("%03d" , (studentCount+1)); //PR 26 110 120
+		}else{
+			studentId = studentId + "OR" + 26 + userInputBatchNo + String.format("%03d" , (studentCount+1));
+		}
+		
+		return studentId;
+	}
 }
 
