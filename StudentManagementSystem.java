@@ -37,5 +37,31 @@ class StudentManagementSystem{
 		batchStatus = tempBatchStatus;
 		
 	}
+	
+	public static void extendArrays(){
+		String[] tempStudentIDs= new String[studentIDs.length+1];
+		String[] tempStudentNames= new String[studentNames.length+1];
+		String[] tempNICs= new String[NICs.length+1];
+		int[] tempPRFMarks= new int[PRFMarks.length+1];
+		int[] tempDBMSMarks= new int[DBMSMarks.length+1];
+		
+		
+		
+		for (int i = 0; i < studentIDs.length; i++){
+			tempStudentIDs[i] = studentIDs[i];
+			tempStudentNames[i] = studentNames[i];
+			tempNICs[i] = NICs[i];
+			tempPRFMarks[i] = PRFMarks[i];
+			tempDBMSMarks[i] = DBMSMarks[i];
+
+		}
+		
+		studentIDs = tempStudentIDs;
+		studentNames = tempStudentNames;
+		NICs = tempNICs;
+		PRFMarks = tempPRFMarks;
+		DBMSMarks = tempDBMSMarks; 
+
+	}
 }
 
