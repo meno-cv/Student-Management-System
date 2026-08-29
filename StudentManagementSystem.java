@@ -21,6 +21,7 @@ class StudentManagementSystem{
 			}  
 		} catch (final Exception e) {  
 			e.printStackTrace();  
+			// Handle any exceptions.  
 		}  
 	}
 	
@@ -38,32 +39,6 @@ class StudentManagementSystem{
 		
 	}
 	
-	public static void extendArrays(){
-		String[] tempStudentIDs= new String[studentIDs.length+1];
-		String[] tempStudentNames= new String[studentNames.length+1];
-		String[] tempNICs= new String[NICs.length+1];
-		int[] tempPRFMarks= new int[PRFMarks.length+1];
-		int[] tempDBMSMarks= new int[DBMSMarks.length+1];
-		
-		
-		
-		for (int i = 0; i < studentIDs.length; i++){
-			tempStudentIDs[i] = studentIDs[i];
-			tempStudentNames[i] = studentNames[i];
-			tempNICs[i] = NICs[i];
-			tempPRFMarks[i] = PRFMarks[i];
-			tempDBMSMarks[i] = DBMSMarks[i];
-
-		}
-		
-		studentIDs = tempStudentIDs;
-		studentNames = tempStudentNames;
-		NICs = tempNICs;
-		PRFMarks = tempPRFMarks;
-		DBMSMarks = tempDBMSMarks; 
-
-	}
-
 	public static void extendArrays(){
 		String[] tempStudentIDs= new String[studentIDs.length+1];
 		String[] tempStudentNames= new String[studentNames.length+1];
@@ -114,7 +89,6 @@ class StudentManagementSystem{
 	public static String generateStudentId(int userInputBatchNo, int mode){
 		
 		//student count
-		
 		int studentCount = 0;
 		
 		for (int i = 0; i < studentIDs.length; i++){
@@ -138,5 +112,319 @@ class StudentManagementSystem{
 		
 		return studentId;
 	}
-}
+	
+	public static void addStudentDetailsToArrays(String studentId, String name, String NIC){
+		studentIDs[studentIDs.length-1] = studentId;
+		studentNames[studentNames.length-1] = name;
+		NICs[NICs.length-1] = NIC;
+		PRFMarks[PRFMarks.length-1] = -2;
+		DBMSMarks[DBMSMarks.length -1] = -2;
+	}
+	
+	public static void addStudent(){
+		
+		Scanner input = new Scanner(System.in);
+		
+		do{
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\t\t\tAdd Student\t\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+			
+			System.out.println();
+			
+			System.out.print("Enter batch Number(Student should be added): ");
+			int batchNO = input.nextInt();
+			
+			System.out.println();
+			
+			if(checkBatchStatus(batchNO)){
+				
+				System.out.print("Enter Student NIC : ");
+				String NIC = input.next();
+				
+				System.out.println();
+				
+				if(checkNICIsExists(NIC)){
+					System.out.println("\tThis student is already added to the system...");
+					continue;
+				}else{
+					System.out.print("Enter Student name : ");
+					String studentName = input.next();
+					
+					System.out.println();
+					
+					System.out.print("Enter Lecturer Mode(1 - PHYSICAL / 0 - ONLINE) : ");
+					int lecturerMode = input.nextInt();
+					
+					System.out.println();
+					
+					String studentId = generateStudentId(batchNO, lecturerMode);
+					
+					System.out.println("\tStudent Registration No - " + studentId);
+					
 
+					
+					extendArrays();
+					
+					//NIC,studentName,studentId
+					addStudentDetailsToArrays(studentId, studentName, NIC);
+					
+					System.out.println();
+					
+					System.out.print("Do you want to add another student (Y/N): ");
+					char retryOption = input.next().charAt(0);
+					
+					if(retryOption == 'Y' || retryOption == 'y'){
+						clearConsole();
+						continue;
+					}else{
+						clearConsole();
+						studentManagement();
+					}
+					
+				}
+				
+			}else{
+				System.out.println();
+				System.out.println("\t Student cannot be added to this course because enrollment is closed....");
+				
+				System.out.println();
+				System.out.print("Do you want to add student to another  batch (Y/N): ");
+				char retryOption = input.next().charAt(0);
+				
+				if(retryOption == 'Y' || retryOption == 'y'){
+					clearConsole();
+					continue;
+				}else{
+					clearConsole();
+					return;
+				}
+			}
+		}while(true);
+        
+	}
+	
+	public static int isRegistrationNoExists(String registrationNO){
+			for (int i = 0; i < studentIDs.length; i++){
+				if(registrationNO.equals(studentIDs[i])){
+					return i;
+				}
+			}
+		return -1;
+			
+	}
+	
+	public static void printStudentFullDeatils(int index){
+		System.out.println("\tRegistration No     : " + studentIDs[index]);
+		System.out.println("\tStudent Name        : " + studentNames[index]);
+		System.out.println("\tStudent NIC         : " + NICs[index]);
+		
+		if(PRFMarks[index] == -2){
+			System.out.println("\tStudent PRF Marks   : Not Conducted");
+		}else if(PRFMarks[index] == -1){
+			System.out.println("\tStudent PRF Marks   : Absent");
+		}else{
+			System.out.println("\tStudent PRF Marks   : " + PRFMarks[index]);
+		}
+		
+		if(DBMSMarks[index] == -2){
+			System.out.println("\tStudent DBMS Marks   : Not Conducted");
+		}else if(DBMSMarks[index] == -1){
+			System.out.println("\tStudent DBMS Marks   : Absent");
+		}else{
+			System.out.println("\tStudent DBMS Marks   : " + DBMSMarks[index]);
+		}
+	
+		System.out.println("\tStudent GPA         : " +calculateGPA(index));
+	}
+	
+	public static double getGPA(int marks){
+		if(marks >= 90){
+			return 4.25;
+		}else if(marks >= 80){
+			return 4.00;
+		}else if(marks >= 75){
+			return 3.70;
+		}else if(marks >= 70){
+			return 3.30;
+		}else if(marks >= 65){
+			return 3.00;
+		}else if(marks >= 60){
+			return 2.70;
+		}else if(marks >= 55){
+			return 2.30;
+		}else if(marks >= 50){
+			return 2.00;
+		}else if(marks >= 45){
+			return 1.70;
+		}else if(marks >= 40){
+			return 1.30;
+		}else if(marks >= 30){
+			return 1.00;
+		}else{
+			return 0.70;
+		}
+	}
+	
+	public static double calculateGPA(int index){
+		
+		int prfMarks = PRFMarks[index];
+		int dbmsMarks = DBMSMarks[index];
+		
+		double prfGPA = 0.0;
+		double dbmsGPA = 0.0;
+		
+		if(prfMarks >= 0){
+			prfGPA = getGPA(prfMarks);
+		} 
+		
+		if(dbmsMarks >= 0){
+			dbmsGPA = getGPA(dbmsMarks);
+		} 
+			
+		double GPA = (prfGPA + dbmsGPA)/2;
+		
+		return GPA;
+	}
+	
+	public static void viewStudentProfile(){
+		Scanner input = new Scanner(System.in);
+		
+		do{
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\tView Student's Profile \t\t|");
+			System.out.println("------------------------------------------------\n");
+			
+			System.out.println();
+			
+			System.out.print("Enter Student Registration No : ");
+			String registrationNo = input.next().toUpperCase();
+			
+			System.out.println();
+			
+			int index = isRegistrationNoExists(registrationNo);
+			
+			if(index >= 0){
+				
+				printStudentFullDeatils(index);	
+				
+				System.out.println();
+				
+				System.out.print("Do you want to search another student details(Y/N): ");
+				char retryOption = input.next().charAt(0);	
+				
+				if(retryOption == 'Y' || retryOption == 'y'){
+					clearConsole();
+					continue;
+				}else{
+					clearConsole();
+					studentManagement();;
+				}		
+				
+			}else{
+				System.out.println();
+				System.out.println("\t This student does not exists in the system...");
+				
+				System.out.println();
+				System.out.print("Do you want to search another student details (Y/N): ");
+				char retryOption = input.next().charAt(0);
+				
+				if(retryOption == 'Y' || retryOption == 'y'){
+					clearConsole();
+					continue;
+				}else{
+					studentManagement();
+					return;
+				}
+			}
+		}while(true);
+        
+        
+	}
+	
+	public static void studentManagement(){
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("-----------------------------------------------------------------");
+        System.out.println("|\t\t\tStudent Management\t\t\t|");
+        System.out.println("-----------------------------------------------------------------\n");
+        
+        System.out.println("[1] Add Student");
+        System.out.println("\n[2] Update Student ");
+        System.out.println("\n[3] View Student Profile");
+        System.out.println("\n[4] Delete Student Profile");
+        System.out.println("\n[5] Exit");
+        
+        System.out.println();
+        
+        System.out.print("Enter an option to continue : ");
+        int studentOption = input.nextInt();
+        
+        
+        switch(studentOption){
+			case 1:{
+				clearConsole();
+				addStudent();
+			}break;
+			case 2:{
+				
+			}break;
+			case 3:{
+				clearConsole();
+				viewStudentProfile();
+			}break;
+			case 4:{
+				
+			}break;
+			case 5:{
+				clearConsole();
+				main(null);
+			}break;
+			
+		}
+	}
+	
+	public static void main(String args[]){
+		
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("-----------------------------------------------------------------");
+        System.out.println("|\t\t\tiCET Student Management System\t\t|");
+        System.out.println("-----------------------------------------------------------------\n");
+        
+        System.out.println("[1] Student Management");
+        System.out.println("\n[2] Batch Management ");
+        System.out.println("\n[3] Grade Management");
+        System.out.println("\n[4] Report Generator");
+        System.out.println("\n[5] Exit");
+        
+        System.out.println();
+        
+        System.out.print("Enter an option to continue : ");
+        int mainOption = input.nextInt();
+        
+        switch(mainOption){
+			case 1:{
+				clearConsole();
+				studentManagement();
+			}break;
+			case 2:{
+				
+			}break;
+			case 3:{
+				
+			}break;
+			case 4:{
+				
+			}break;
+			case 5:{
+				System.exit(0);
+			}break;
+			default:{
+				System.out.println("Invalid Option.....");
+				System.exit(0);
+			}
+		}
+        
+	}
+}
