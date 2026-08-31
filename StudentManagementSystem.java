@@ -1,5 +1,5 @@
 import java.util.*;
-class StudentManagement{
+class StudentManagementSystem{
 	
 	public static String[] studentIDs= new String[0];
 	public static String[] studentNames= new String[0];
@@ -179,7 +179,7 @@ class StudentManagement{
 						continue;
 					}else{
 						clearConsole();
-						main(null);
+						studentManagement();
 					}
 					
 				}
@@ -317,7 +317,8 @@ class StudentManagement{
 					clearConsole();
 					continue;
 				}else{
-					main(null);
+					clearConsole();
+					studentManagement();;
 				}		
 				
 			}else{
@@ -332,7 +333,7 @@ class StudentManagement{
 					clearConsole();
 					continue;
 				}else{
-					main(null);
+					studentManagement();
 					return;
 				}
 			}
@@ -340,8 +341,50 @@ class StudentManagement{
         
         
 	}
+	
+	public static void studentManagement(){
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("-----------------------------------------------------------------");
+        System.out.println("|\t\t\tStudent Management\t\t\t|");
+        System.out.println("-----------------------------------------------------------------\n");
+        
+        System.out.println("[1] Add Student");
+        System.out.println("\n[2] Update Student ");
+        System.out.println("\n[3] View Student Profile");
+        System.out.println("\n[4] Delete Student Profile");
+        System.out.println("\n[5] Exit");
+        
+        System.out.println();
+        
+        System.out.print("Enter an option to continue : ");
+        int studentOption = input.nextInt();
+        
+        
+        switch(studentOption){
+			case 1:{
+				clearConsole();
+				addStudent();
+			}break;
+			case 2:{
+				
+			}break;
+			case 3:{
+				clearConsole();
+				viewStudentProfile();
+			}break;
+			case 4:{
+				
+			}break;
+			case 5:{
+				clearConsole();
+				main(null);
+			}break;
+			
+		}
+	}
 
-	public static void updateStudent() {
+		public static void updateStudent() {
 		Scanner input = new Scanner(System.in);
 
 		do {
@@ -512,39 +555,36 @@ class StudentManagement{
 
 		} while (true);
 	}
-
 	
 	public static void main(String args[]){
 		
 		Scanner input = new Scanner(System.in);
 		
 		System.out.println("-----------------------------------------------------------------");
-        System.out.println("|\t\t\tStudent Management\t\t\t|");
+        System.out.println("|\t\t\tiCET Student Management System\t\t|");
         System.out.println("-----------------------------------------------------------------\n");
         
-        System.out.println("[1] Add Student");
-        System.out.println("\n[2] Update Student ");
-        System.out.println("\n[3] View Student Profile");
-        System.out.println("\n[4] Delete Student Profile");
+        System.out.println("[1] Student Management");
+        System.out.println("\n[2] Batch Management ");
+        System.out.println("\n[3] Grade Management");
+        System.out.println("\n[4] Report Generator");
         System.out.println("\n[5] Exit");
         
         System.out.println();
         
         System.out.print("Enter an option to continue : ");
-        int studentOption = input.nextInt();
+        int mainOption = input.nextInt();
         
-        
-        switch(studentOption){
+        switch(mainOption){
 			case 1:{
 				clearConsole();
-				addStudent();
+				studentManagement();
 			}break;
 			case 2:{
 				
 			}break;
 			case 3:{
-				clearConsole();
-				viewStudentProfile();
+				
 			}break;
 			case 4:{
 				
@@ -552,7 +592,11 @@ class StudentManagement{
 			case 5:{
 				System.exit(0);
 			}break;
-			
+			default:{
+				System.out.println("Invalid Option.....");
+				System.exit(0);
+			}
 		}
+        
 	}
 }
