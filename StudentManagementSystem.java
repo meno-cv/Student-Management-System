@@ -424,6 +424,95 @@ class StudentManagement{
 
 		} while (true);
 	}
+
+	public static void deleteStudent() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\tDelete Student Profile\t\t|");
+			System.out.println("------------------------------------------------\n");
+
+			System.out.print("Enter Student Registration No. : ");
+			String registrationNo = input.next().toUpperCase();
+
+			int index = isRegistrationNoExists(registrationNo);
+
+			if (index >= 0) {
+
+				System.out.println();
+				printStudentFullDeatils(index);
+
+				System.out.println();
+				System.out.print("Are you sure you want to delete this student (Y/N): ");
+				char deleteOption = input.next().charAt(0);
+
+				if (deleteOption == 'Y' || deleteOption == 'y') {
+
+					String[] tempStudentIDs = new String[studentIDs.length - 1];
+					String[] tempStudentNames = new String[studentNames.length - 1];
+					String[] tempNICs = new String[NICs.length - 1];
+
+					int[] tempPRFMarks = new int[PRFMarks.length - 1];
+					int[] tempDBMSMarks = new int[DBMSMarks.length - 1];
+
+					for (int i = 0; i < index; i++) {
+
+						tempStudentIDs[i] = studentIDs[i];
+						tempStudentNames[i] = studentNames[i];
+						tempNICs[i] = NICs[i];
+						tempPRFMarks[i] = PRFMarks[i];
+						tempDBMSMarks[i] = DBMSMarks[i];
+					}
+
+					for (int i = index; i < tempStudentIDs.length; i++) {
+
+						tempStudentIDs[i] = studentIDs[i + 1];
+						tempStudentNames[i] = studentNames[i + 1];
+						tempNICs[i] = NICs[i + 1];
+						tempPRFMarks[i] = PRFMarks[i + 1];
+						tempDBMSMarks[i] = DBMSMarks[i + 1];
+					}
+
+					studentIDs = tempStudentIDs;
+					studentNames = tempStudentNames;
+					NICs = tempNICs;
+					PRFMarks = tempPRFMarks;
+					DBMSMarks = tempDBMSMarks;
+
+					System.out.println();
+					System.out.println("\tStudent deleted successfully...");
+
+				} else {
+
+					System.out.println();
+					System.out.println("\tStudent deletion cancelled...");
+				}
+
+			} else {
+
+				System.out.println();
+				System.out.println("\tThis student not exist in the system...");
+			}
+
+			System.out.println();
+			System.out.print("Do you want to delete another student (Y/N): ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	
 	public static void main(String args[]){
 		
