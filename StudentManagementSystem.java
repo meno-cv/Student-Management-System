@@ -1,5 +1,5 @@
 import java.util.*;
-class StudentManagementSystem{
+class StudentManagement{
 	
 	public static String[] studentIDs= new String[0];
 	public static String[] studentNames= new String[0];
@@ -179,7 +179,7 @@ class StudentManagementSystem{
 						continue;
 					}else{
 						clearConsole();
-						studentManagement();
+						main(null);
 					}
 					
 				}
@@ -317,8 +317,7 @@ class StudentManagementSystem{
 					clearConsole();
 					continue;
 				}else{
-					clearConsole();
-					studentManagement();;
+					main(null);
 				}		
 				
 			}else{
@@ -333,7 +332,7 @@ class StudentManagementSystem{
 					clearConsole();
 					continue;
 				}else{
-					studentManagement();
+					main(null);
 					return;
 				}
 			}
@@ -341,8 +340,93 @@ class StudentManagementSystem{
         
         
 	}
+
+	public static void updateStudent() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\tUpdate Student Details\t\t|");
+			System.out.println("------------------------------------------------\n");
+
+			System.out.print("Enter Student Registration No. : ");
+			String registrationNo = input.next().toUpperCase();
+
+			int index = isRegistrationNoExists(registrationNo);
+
+			if (index >= 0) {
+
+				System.out.println();
+				System.out.println("\tRegistration No : " + studentIDs[index]);
+				System.out.println("\tStudent Name    : " + studentNames[index]);
+				System.out.println("\tStudent NIC     : " + NICs[index]);
+
+				System.out.println();
+				System.out.println("[1] Update Student Name");
+				System.out.println("[2] Update Student NIC");
+
+				System.out.println();
+				System.out.print("Enter an option to continue : ");
+				int option = input.nextInt();
+
+				if (option == 1) {
+
+					System.out.print("\nEnter new Student Name : ");
+					String studentName = input.next();
+
+					studentNames[index] = studentName;
+
+					System.out.println();
+					System.out.println("\tStudent Name updated successfully.....");
+
+				} else if (option == 2) {
+
+					System.out.print("\nEnter new Student NIC : ");
+					String NIC = input.next();
+
+					if (checkNICIsExists(NIC)) {
+
+						System.out.println();
+						System.out.println("\tThis NIC already exists in the system..");
+
+					} else {
+
+						NICs[index] = NIC;
+
+						System.out.println();
+						System.out.println("\tStudent NIC updated successfully....");
+					}
+
+				} else {
+					System.out.println("\n\tInvalid option...");
+				}
+
+			} else {
+				System.out.println();
+				System.out.println("\tThis student not exist in the system...");
+			}
+
+			System.out.println();
+			System.out.print("Do you want to update another student? : ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+
+				clearConsole();
+				continue;
+
+			} else {
+
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
 	
-	public static void studentManagement(){
+	public static void main(String args[]){
+		
 		Scanner input = new Scanner(System.in);
 		
 		System.out.println("-----------------------------------------------------------------");
@@ -377,54 +461,9 @@ class StudentManagementSystem{
 				
 			}break;
 			case 5:{
-				clearConsole();
-				main(null);
+				System.exit(0);
 			}break;
 			
 		}
-	}
-	
-	public static void main(String args[]){
-		
-		Scanner input = new Scanner(System.in);
-		
-		System.out.println("-----------------------------------------------------------------");
-        System.out.println("|\t\t\tiCET Student Management System\t\t|");
-        System.out.println("-----------------------------------------------------------------\n");
-        
-        System.out.println("[1] Student Management");
-        System.out.println("\n[2] Batch Management ");
-        System.out.println("\n[3] Grade Management");
-        System.out.println("\n[4] Report Generator");
-        System.out.println("\n[5] Exit");
-        
-        System.out.println();
-        
-        System.out.print("Enter an option to continue : ");
-        int mainOption = input.nextInt();
-        
-        switch(mainOption){
-			case 1:{
-				clearConsole();
-				studentManagement();
-			}break;
-			case 2:{
-				
-			}break;
-			case 3:{
-				
-			}break;
-			case 4:{
-				
-			}break;
-			case 5:{
-				System.exit(0);
-			}break;
-			default:{
-				System.out.println("Invalid Option.....");
-				System.exit(0);
-			}
-		}
-        
 	}
 }
