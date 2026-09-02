@@ -328,6 +328,60 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// View Batch
+
+	public static void viewBatches() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\t\tView Batches\t\t\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+
+			System.out.println("Batch No\tStudent Count\tStatus");
+			System.out.println("------------------------------------------------");
+
+			for (int i = 0; i < batchNos.length; i++) {
+				
+				int studentCount = 0;
+				
+
+				for (int j = 0; j < studentIDs.length; j++) {
+
+					String studentID = studentIDs[j];
+					int batchNO = Integer.parseInt(studentID.substring(4, 7));
+
+					if (batchNO == batchNos[i]) {
+						studentCount++;
+					}
+				}
+
+				String status;
+
+				if (batchStatus[i] == 1) {
+					status = "ENROLLMENT--OPEN!";
+
+				} else {
+					status = "ENROLLMENT--CLOSED!";
+				}
+
+				System.out.println(batchNos[i] + "\t\t" + studentCount + "\t\t" + status);
+			}
+
+			System.out.println();
+			System.out.print("Do you want to stay in View Batches? : ");
+			char option = input.next().charAt(0);
+
+			if (option == 'Y' || option == 'y') {
+				clearConsole();
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	public static int isRegistrationNoExists(String registrationNO) {
 		for (int i = 0; i < studentIDs.length; i++) {
 			if (registrationNO.equals(studentIDs[i])) {
