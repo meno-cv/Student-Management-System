@@ -251,6 +251,83 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// Update Batch
+
+	public static void updateBatch() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\t\tUpdate Batch\t\t\t|");
+			System.out.println("------------------------------------------------\n");
+
+			System.out.print("Enter Batch Number : ");
+			int batchNO = input.nextInt();
+
+			int index = -1;
+
+			for (int i = 0; i < batchNos.length; i++) {
+
+				if (batchNos[i] == batchNO) {
+					index = i;
+					break;
+				}
+			}
+
+			if (index >= 0) {
+
+				System.out.println();
+				System.out.println("\tBatch Number : " + batchNos[index]);
+
+				if (batchStatus[index] == 1) {
+					System.out.println("\tBatch Status : ENROLLMENT--OPEN");
+
+				} else {
+					System.out.println("\tBatch Status : ENROLLMENT---CLOSED");
+				}
+
+				System.out.println();
+
+				System.out.println("[1] ENROLLMENT--OPEN");
+				System.out.println("[0] ENROLLMENT--CLOSED");
+
+				System.out.print("\nEnter new status : ");
+				int status = input.nextInt();
+
+				if (status == 1 || status == 0) {
+
+					batchStatus[index] = status;
+
+					System.out.println();
+					System.out.println("\tBatch status updated successfully...");
+
+				} else {
+					System.out.println();
+					System.out.println("\tInvalid status...");
+				}
+
+			} else {
+				System.out.println();
+				System.out.println("\tThis batch does not exist in the system!");
+			}
+
+			System.out.println();
+			System.out.print("Do you want to update another batch? : ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	public static int isRegistrationNoExists(String registrationNO) {
 		for (int i = 0; i < studentIDs.length; i++) {
 			if (registrationNO.equals(studentIDs[i])) {
