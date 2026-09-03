@@ -26,7 +26,7 @@ class StudentManagementSystem {
 		}
 	}
 
-		public static void extendBatchArrays() {
+	public static void extendBatchArrays() {
 
 		int[] tempBatchNos = new int[batchNos.length + 1];
 		int[] tempBatchStatus = new int[batchStatus.length + 1];
@@ -39,7 +39,6 @@ class StudentManagementSystem {
 		batchNos = tempBatchNos;
 		batchStatus = tempBatchStatus;
 	}
-
 
 	public static void extendArrays() {
 		String[] tempStudentIDs = new String[studentIDs.length + 1];
@@ -204,7 +203,7 @@ class StudentManagementSystem {
 
 	}
 
-	// Add BATCH 
+	// Add BATCH
 
 	public static void addBatch() {
 		Scanner input = new Scanner(System.in);
@@ -343,9 +342,8 @@ class StudentManagementSystem {
 			System.out.println("------------------------------------------------");
 
 			for (int i = 0; i < batchNos.length; i++) {
-				
+
 				int studentCount = 0;
-				
 
 				for (int j = 0; j < studentIDs.length; j++) {
 
@@ -375,6 +373,77 @@ class StudentManagementSystem {
 
 			if (option == 'Y' || option == 'y') {
 				clearConsole();
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
+	// PRF Marks Update // Grade Management - for PRF
+
+	public static void updatePRFMarks() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\tUpdate PRF Marks\t\t|");
+			System.out.println("------------------------------------------------\n");
+
+			System.out.print("Enter Student Registration No : ");
+			String registrationNo = input.next().toUpperCase();
+
+			int index = isRegistrationNoExists(registrationNo);
+
+			if (index >= 0) {
+
+				System.out.println();
+				System.out.println("\tRegistration No   : " + studentIDs[index]);
+				System.out.println("\tStudent Name      : " + studentNames[index]);
+
+				if (PRFMarks[index] == -2) {
+					System.out.println("\tCurrent PRF Marks : Not Conducted");
+
+				} else if (PRFMarks[index] == -1) {
+					System.out.println("\tCurrent PRF Marks : Absent");
+
+				} else {
+					System.out.println("\tCurrent PRF Marks : " + PRFMarks[index]);
+				}
+
+				System.out.println();
+				System.out.print("Enter new PRF Marks (-1 for Absent) : ");
+				int marks = input.nextInt();
+
+				if (marks == -1 || (marks >= 0 && marks <= 100)) {
+
+					PRFMarks[index] = marks;
+
+					System.out.println();
+					System.out.println("\tPRF Marks updated successfully.....");
+
+				} else {
+					System.out.println();
+					System.out.println("\tInvalid marks...");
+					System.out.println("\tMarks should be between 0 and 100 or -1 for absent.");
+				}
+
+			} else {
+				System.out.println();
+				System.out.println("\tThis student doesnt exist in the system!...");
+			}
+
+			System.out.println();
+
+			System.out.print("Do you want to update another PRF marks?  : ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+				clearConsole();
+				continue;
+
 			} else {
 				clearConsole();
 				return;
@@ -817,7 +886,8 @@ class StudentManagementSystem {
 			}
 				break;
 			case 2: {
-
+				clearConsole();
+				batchManagement();
 			}
 				break;
 			case 3: {
