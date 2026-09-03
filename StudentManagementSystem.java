@@ -26,19 +26,20 @@ class StudentManagementSystem {
 		}
 	}
 
-	public static void extendBatchArrays() {
+		public static void extendBatchArrays() {
+
 		int[] tempBatchNos = new int[batchNos.length + 1];
 		int[] tempBatchStatus = new int[batchStatus.length + 1];
 
-		for (int i = 0; i < batchNos.length + 1; i++) {
+		for (int i = 0; i < batchNos.length; i++) {
 			tempBatchNos[i] = batchNos[i];
 			tempBatchStatus[i] = batchStatus[i];
 		}
 
 		batchNos = tempBatchNos;
 		batchStatus = tempBatchStatus;
-
 	}
+
 
 	public static void extendArrays() {
 		String[] tempStudentIDs = new String[studentIDs.length + 1];
@@ -518,6 +519,56 @@ class StudentManagementSystem {
 			}
 		} while (true);
 
+	}
+
+	// Batch Management
+
+	public static void batchManagement() {
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("|\t\t\tBatch Management\t\t\t|");
+		System.out.println("-----------------------------------------------------------------\n");
+
+		System.out.println("[1] Add Batch");
+		System.out.println("\n[2] Update Batch");
+		System.out.println("\n[3] View Batches");
+		System.out.println("\n[4] Back to Main Menu");
+
+		System.out.println();
+		System.out.print("Enter an option to continue : ");
+		int batchOption = input.nextInt();
+
+		switch (batchOption) {
+
+			case 1: {
+				clearConsole();
+				addBatch();
+			}
+				break;
+
+			case 2: {
+				clearConsole();
+				updateBatch();
+			}
+				break;
+
+			case 3: {
+				clearConsole();
+				viewBatches();
+			}
+				break;
+
+			case 4: {
+				clearConsole();
+				return;
+			}
+
+			default: {
+
+				System.out.println("\nInvalid Option.....");
+			}
+		}
 	}
 
 	public static void studentManagement() {
