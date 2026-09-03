@@ -452,6 +452,76 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+		// DBMS Marks Update
+
+	public static void updateDBMSMarks() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+
+			System.out.println("------------------------------------------------");
+			System.out.println("|\t\tUpdate DBMS Marks\t\t|");
+			System.out.println("------------------------------------------------\n");
+
+			System.out.print("Enter Student Registration No : ");
+			String registrationNo = input.next().toUpperCase();
+
+			int index = isRegistrationNoExists(registrationNo);
+
+			if (index >= 0) {
+
+				System.out.println();
+				System.out.println("\tRegistration No. : " + studentIDs[index]);
+				System.out.println("\tStudent Name     : " + studentNames[index]);
+
+				if (DBMSMarks[index] == -2) {
+					System.out.println("\tCurrent DBMS Marks : Not Conducted");
+
+				} else if (DBMSMarks[index] == -1) {
+					System.out.println("\tCurent DBMS Marks : Absent");
+
+				} else {
+					System.out.println("\tCurrent DBMS Marks : " + DBMSMarks[index]);
+				}
+
+				System.out.println();
+				System.out.print("Enter new DBMS Marks (-1 for Absent) : ");
+				int marks = input.nextInt();
+
+				if (marks == -1 || (marks >= 0 && marks <= 100)) {
+
+					DBMSMarks[index] = marks;
+
+					System.out.println();
+					System.out.println("\tDBMS Marks updated successfully.....");
+
+				} else {
+					System.out.println();
+					System.out.println("\tInvalid marks..");
+					System.out.println("\tMarks should be between 0 and 100 or -1 for absent.");
+				}
+
+			} else {
+				System.out.println();
+				System.out.println("\tThis student not exist in the system...");
+			}
+
+			System.out.println();
+			System.out.print("Do you want to update another DBMS marks? : ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	public static int isRegistrationNoExists(String registrationNO) {
 		for (int i = 0; i < studentIDs.length; i++) {
 			if (registrationNO.equals(studentIDs[i])) {
