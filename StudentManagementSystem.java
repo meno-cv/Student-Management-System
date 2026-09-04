@@ -452,7 +452,7 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
-		// DBMS Marks Update
+	// DBMS Marks Update
 
 	public static void updateDBMSMarks() {
 		Scanner input = new Scanner(System.in);
@@ -520,6 +520,60 @@ class StudentManagementSystem {
 			}
 
 		} while (true);
+	}
+
+	// GRADE MANAGEMENT
+
+	public static void gradeManagement() {
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("|\t\t\tGrade Management\t\t\t|");
+		System.out.println("-----------------------------------------------------------------\n");
+
+		System.out.println("[1] Update PRF Marks");
+		System.out.println("\n[2] Update DBMS Marks");
+		System.out.println("\n[3] Back to Main Menu");
+
+		System.out.println();
+		System.out.print("Enter an option to continue : ");
+		int gradeOption = input.nextInt();
+
+		switch (gradeOption) {
+
+			case 1: {
+				clearConsole();
+				updatePRFMarks();
+			}
+				break;
+
+			case 2: {
+				clearConsole();
+				updateDBMSMarks();
+			}
+				break;
+
+			case 3: {
+				clearConsole();
+				return;
+			}
+
+			default: {
+				System.out.println("\nInvalid Option.....");
+			}
+		}
+	}
+
+	public static int isRegistrationNoExists(String registrationNO) {
+
+		for (int i = 0; i < studentIDs.length; i++) {
+
+			if (registrationNO.equals(studentIDs[i])) {
+				return i;
+			}
+		}
+		return -1;
+
 	}
 
 	public static int isRegistrationNoExists(String registrationNO) {
