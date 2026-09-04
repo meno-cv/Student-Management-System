@@ -146,7 +146,22 @@ class StudentManagementSystem {
 				System.out.println();
 
 				if (checkNICIsExists(NIC)) {
+
+					int index = 0;
+
+					for (int i = 0; i < NICs.length; i++) {
+						if (NIC.equals(NICs[i])) {
+							index = i;
+							break;
+						}
+					}
+
+					System.out.println();
 					System.out.println("\tThis student is already added to the system...");
+					System.out.println();
+
+					printStudentFullDeatils(index);
+
 					continue;
 				} else {
 					System.out.print("Enter Student name : ");
@@ -1015,6 +1030,8 @@ class StudentManagementSystem {
 			}
 				break;
 			case 3: {
+				clearConsole();
+				gradeManagement();
 
 			}
 				break;
