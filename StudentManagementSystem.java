@@ -1039,10 +1039,10 @@ class StudentManagementSystem {
 				int index = sortinArray[i];
 
 				System.out.println((i + 1) + "\t"
-						+ studentIDs[index] +"\t"
-						+ studentNames[index] +"\t\t"
+						+ studentIDs[index] + "\t"
+						+ studentNames[index] + "\t\t"
 						+ NICs[index] + "\t"
-						+ PRFMarks[index] +"\t\t"
+						+ PRFMarks[index] + "\t\t"
 						+ DBMSMarks[index] + "\t\t"
 						+ String.format("%.2f", calculateGPA(index)));
 			}
@@ -1087,7 +1087,7 @@ class StudentManagementSystem {
 				}
 
 				if (studentCount > 0) {
-					System.out.println("[" + optionNo + "] " +batchNos[i]+ " Batch");
+					System.out.println("[" + optionNo + "] " + batchNos[i] + " Batch");
 					optionNo++;
 				}
 			}
@@ -1136,6 +1136,50 @@ class StudentManagementSystem {
 			}
 
 			clearConsole();
+
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\t" + chosenBatch + " Batch Student Report\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+
+			System.out.println("No\tRegistration No\tStudent Name\t\tNIC\t\tPRF Marks\tDBMS Marks\tGPA");
+			System.out.println(
+					"------------------------------------------------------------------------------------------------");
+
+			int count = 1;
+
+			for (int i = 0; i < studentIDs.length; i++) {
+
+				int batchNO = Integer.parseInt(studentIDs[i].substring(4, 7));
+
+				if (batchNO == chosenBatch) {
+
+					System.out.println(count + "\t"
+							+ studentIDs[i] + "\t"
+							+ studentNames[i] + "\t\t"
+							+ NICs[i] + "\t"
+							+ PRFMarks[i] + "\t\t"
+							+ DBMSMarks[i] + "\t\t"
+							+ String.format("%.2f", calculateGPA(i)));
+
+					count++;
+				}
+			}
+
+			System.out.println();
+			System.out.print("Do you want to view another batch report (Y/N): ");
+			char retryOption = input.next().charAt(0);
+
+			if (retryOption == 'Y' || retryOption == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
 
 	public static void main(String args[]) {
 
