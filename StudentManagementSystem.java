@@ -999,6 +999,70 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// Std Registration Report
+
+	public static void studentRegistrationReport() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\t\tStudent Registration Report\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+
+			int[] sortinArray = new int[studentNames.length];
+
+			for (int i = 0; i < sortinArray.length; i++) {
+				sortinArray[i] = i;
+			}
+
+			// sort sstds acc to name
+
+			for (int i = 0; i < sortinArray.length - 1; i++) {
+
+				for (int j = 0; j < sortinArray.length - i - 1; j++) {
+
+					if (studentNames[sortinArray[j]].compareToIgnoreCase(studentNames[sortinArray[j + 1]]) > 0) {
+
+						int temp = sortinArray[j];
+						sortinArray[j] = sortinArray[j + 1];
+						sortinArray[j + 1] = temp;
+					}
+				}
+			}
+
+			System.out.println("No\tRegistration No\tStudent Name\t\tNIC\t\tPRF Marks\tDBMS Marks\tGPA");
+			System.out.println(
+					"------------------------------------------------------------------------------------------------");
+
+			for (int i = 0; i < sortinArray.length; i++) {
+
+				int index = sortinArray[i];
+
+				System.out.println((i + 1) + "\t"
+						+ studentIDs[index] +"\t"
+						+ studentNames[index] +"\t\t"
+						+ NICs[index] + "\t"
+						+ PRFMarks[index] +"\t\t"
+						+ DBMSMarks[index] + "\t\t"
+						+ String.format("%.2f", calculateGPA(index)));
+			}
+
+			System.out.println();
+			System.out.print("Do you want to stay in Student Registration Report (Y/N): ");
+			char option = input.next().charAt(0);
+
+			if (option == 'Y' || option == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	public static void main(String args[]) {
 
 		Scanner input = new Scanner(System.in);
