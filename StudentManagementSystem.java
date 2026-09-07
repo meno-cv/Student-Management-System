@@ -1063,6 +1063,80 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// Batchwise std Report
+
+	public static void batchWiseStudentReport() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\t\tBatch wise Student Report\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+
+			int optionNo = 1;
+
+			for (int i = 0; i < batchNos.length; i++) {
+				int studentCount = 0;
+
+				for (int j = 0; j < studentIDs.length; j++) {
+
+					int batchNO = Integer.parseInt(studentIDs[j].substring(4, 7));
+					if (batchNO == batchNos[i]) {
+						studentCount++;
+					}
+				}
+
+				if (studentCount > 0) {
+					System.out.println("[" + optionNo + "] " +batchNos[i]+ " Batch");
+					optionNo++;
+				}
+			}
+
+			System.out.println("[" + optionNo + "] Exit");
+
+			System.out.println();
+			System.out.print("Enter an option to continue : ");
+			int option = input.nextInt();
+
+			if (option == optionNo) {
+				clearConsole();
+				return;
+			}
+
+			int chosenBatch = -1;
+			int currentOption = 1;
+
+			for (int i = 0; i < batchNos.length; i++) {
+
+				int studentCount = 0;
+
+				for (int j = 0; j < studentIDs.length; j++) {
+
+					int batchNO = Integer.parseInt(studentIDs[j].substring(4, 7));
+
+					if (batchNO == batchNos[i]) {
+						studentCount++;
+					}
+				}
+
+				if (studentCount > 0) {
+
+					if (currentOption == option) {
+						chosenBatch = batchNos[i];
+						break;
+					}
+
+					currentOption++;
+				}
+			}
+
+			if (chosenBatch == -1) {
+				System.out.println("\nInvalid Option.....");
+				continue;
+			}
+
+			clearConsole();
+
 	public static void main(String args[]) {
 
 		Scanner input = new Scanner(System.in);
