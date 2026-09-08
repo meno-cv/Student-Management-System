@@ -1181,6 +1181,58 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// Industry-Training eligibility report
+
+	public static void industryTrainingReport() {
+		Scanner input = new Scanner(System.in);
+
+		do {
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("|\t\tIndustry Training EligibilityReport\t\t|");
+			System.out.println("-----------------------------------------------------------------\n");
+
+			System.out.println("Eligible Students");
+			System.out.println();
+
+			System.out.println("No\tRegistration No\tStudent Name\t\tNIC\t\tPRF Marks\tDBMS Marks\tGPA");
+			System.out.println(
+					"------------------------------------------------------------------------------------------------");
+
+			int count = 1;
+
+			for (int i = 0; i < studentIDs.length; i++) {
+				double GPA = calculateGPA(i);
+
+				if (GPA > 3.25 && PRFMarks[i] > 50 && DBMSMarks[i] > 50) {
+					System.out.println(count + "\t"
+							+ studentIDs[i] + "\t"
+							+ studentNames[i] + "\t\t"
+							+ NICs[i] + "\t"
+							+ PRFMarks[i] + "\t\t"
+							+ DBMSMarks[i] + "\t\t"
+							+ String.format("%.2f", GPA));
+
+					count++;
+
+				}
+			}
+
+			System.out.println();
+			System.out.print("Do you want to stay in Industry Training Report (Y/N): ");
+			char option = input.next().charAt(0);
+
+			if (option == 'Y' || option == 'y') {
+				clearConsole();
+				continue;
+
+			} else {
+				clearConsole();
+				return;
+			}
+
+		} while (true);
+	}
+
 	public static void main(String args[]) {
 
 		Scanner input = new Scanner(System.in);
