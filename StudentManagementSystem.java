@@ -1319,6 +1319,8 @@ class StudentManagementSystem {
 			}
 				break;
 			case 4: {
+				clearConsole();
+				reportManagement();
 
 			}
 				break;
