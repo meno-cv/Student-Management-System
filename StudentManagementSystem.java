@@ -1233,6 +1233,55 @@ class StudentManagementSystem {
 		} while (true);
 	}
 
+	// repo Management
+
+	public static void reportManagement() {
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("|\t\t\tReport Management\t\t\t|");
+		System.out.println("-----------------------------------------------------------------\n");
+
+		System.out.println("[1] Student Registration Report");
+		System.out.println("\n[2] Batch-wise Student Report");
+		System.out.println("\n[3] Industry Training Eligibility Report");
+		System.out.println("\n[4] Exit");
+
+		System.out.println();
+		System.out.print("Enter an option to continue : ");
+		int reportOption = input.nextInt();
+
+		switch (reportOption) {
+
+			case 1: {
+				clearConsole();
+				studentRegistrationReport();
+			}
+				break;
+
+			case 2: {
+				clearConsole();
+				batchWiseStudentReport();
+			}
+				break;
+
+			case 3: {
+				clearConsole();
+				industryTrainingReport();
+			}
+				break;
+
+			case 4: {
+				clearConsole();
+				return;
+			}
+
+			default: {
+				System.out.println("\nInvalid Option.....");
+			}
+		}
+	}
+
 	public static void main(String args[]) {
 
 		Scanner input = new Scanner(System.in);
